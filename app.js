@@ -1,3 +1,5 @@
+const ald = require('./utils/ald-stat.js') 
+const aldstat = require('./utils/ald-stat.js')
 App({
   onLaunch: function () {
     try {
@@ -9,6 +11,7 @@ App({
   },
 
   globalData: {
+    aldstat:'',
     userInfo: {
       nickname: '点击登录',
       avatar: 'http://yanxuan.nosdn.127.net/8945ae63d940cc42406c3f67019c5cb6.png'

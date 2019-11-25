@@ -212,7 +212,8 @@ Page({
     this.updateCart(cartItem.product_id, cartItem.goods_id, number, cartItem.id);
 
   },
-  checkoutOrder: function () {
+  checkoutOrder: function (enent) {
+    console.log(enent)
     //获取已选择的商品
     let that = this;
 

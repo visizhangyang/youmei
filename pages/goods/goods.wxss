@@ -74,7 +74,7 @@
   height: 35rpx;
   font-size: 35rpx;
   line-height: 35rpx;
-  color: #b4282d;
+  color: #d32f34;
 }
 
 .goods-info .brand {
@@ -392,7 +392,7 @@
   display: block;
   height: 8rpx;
   width: 8rpx;
-  background: #b4282d;
+  background: #d32f34;
   border-radius: 50%;
   margin-top: 11rpx;
 }
@@ -494,7 +494,7 @@
   height: 30rpx;
   text-align: center;
   font-size: 30rpx;
-  color: #b4282d;
+  color: #d32f34;
 }
 
 .bottom-btn {
@@ -537,7 +537,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  background: #b4282d;
+  background: #d32f34;
   text-align: center;
   font-size: 18rpx;
   color: #fff;
@@ -569,8 +569,8 @@
 }
 
 .bottom-btn .r {
-  border: 1px solid #b4282d;
-  background: #b4282d;
+  border: 1px solid #d32f34;
+  background: #d32f34;
   float: left;
   height: 100rpx;
   line-height: 96rpx;
@@ -690,8 +690,8 @@
 }
 
 .spec-con .value.selected {
-  border: 1px solid #b4282d;
-  color: #b4282d;
+  border: 1px solid #d32f34;
+  color: #d32f34;
 }
 
 .number-item .selnum {

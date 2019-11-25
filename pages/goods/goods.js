@@ -224,7 +224,7 @@ Page({
   addCannelCollect: function () {
     let that = this;
     //添加或是取消收藏
-    util.request(api.CollectAddOrDelete, { typeId: 0, valueId: this.data.id }, "POST")
+    util.request(api.CollectAddOrDelete, { goodsId: this.data.id }, "POST")
       .then(function (res) {
         let _res = res;
         if (_res.errno == 0) {

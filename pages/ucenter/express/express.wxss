@@ -65,7 +65,7 @@ page {
   position: absolute;
   top: 30rpx;
   left: 50rpx;
-  background: #b4282d;
+  background: #d32f34;
   border-radius: 24rpx;
 }
 
@@ -111,7 +111,7 @@ page {
 }
 
 .express-item.item-0 .right .info {
-  color: #b4282d;
+  color: #d32f34;
 }
 
 .express-item .right .time {
@@ -123,5 +123,5 @@ page {
 }
 
 .express-item.item-0 .right .time {
-  color: #b4282d;
+  color: #d32f34;
 }

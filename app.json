@@ -32,49 +32,51 @@
     "pages/shopping/address/address",
     "pages/shopping/addressAdd/addressAdd",
     "pages/goods/goods",
-    "pages/topicDetail/topicDetail"
+    "pages/topicDetail/topicDetail",
+    "pages/qrCode/index",
+    "pages/webview/webview"
   ],
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "仿网易严选",
+    "navigationBarTitleText": "柚美美",
     "navigationBarTextStyle": "black",
     "enablePullDownRefresh": true
   },
   "tabBar": {
     "backgroundColor": "#fafafa",
     "borderStyle": "white",
-    "selectedColor": "#b4282d",
+    "selectedColor": "#d32f34",
     "color": "#666",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "iconPath": "static/images/ic_menu_choice_nor.png",
-        "selectedIconPath": "static/images/ic_menu_choice_pressed.png",
+        "iconPath": "static/images/index.png",
+        "selectedIconPath": "static/images/indexSelect.png",
         "text": "首页"
       },
       {
         "pagePath": "pages/topic/topic",
-        "iconPath": "static/images/ic_menu_topic_nor.png",
-        "selectedIconPath": "static/images/ic_menu_topic_pressed.png",
+        "iconPath": "static/images/activity.png",
+        "selectedIconPath": "static/images/activitySelect.png",
         "text": "专题"
       },
       {
         "pagePath": "pages/catalog/catalog",
-        "iconPath": "static/images/ic_menu_sort_nor.png",
-        "selectedIconPath": "static/images/ic_menu_sort_pressed.png",
+        "iconPath": "static/images/typeList.png",
+        "selectedIconPath": "static/images/typeListSelect.png",
         "text": "分类"
       },
       {
         "pagePath": "pages/cart/cart",
-        "iconPath": "static/images/ic_menu_shoping_nor.png",
-        "selectedIconPath": "static/images/ic_menu_shoping_pressed.png",
+        "iconPath": "static/images/cart.png",
+        "selectedIconPath": "static/images/cartSelect.png",
         "text": "购物车"
       },
       {
         "pagePath": "pages/ucenter/index/index",
-        "iconPath": "static/images/ic_menu_me_nor.png",
-        "selectedIconPath": "static/images/ic_menu_me_pressed.png",
+        "iconPath": "static/images/mine.png",
+        "selectedIconPath": "static/images/mineSelect.png",
         "text": "我的"
       }
     ]
@@ -83,5 +85,6 @@
     "request": 10000,
     "downloadFile": 10000
   },
-  "debug": true
+  "debug": true,
+  "sitemapLocation": "sitemap.json"
 }

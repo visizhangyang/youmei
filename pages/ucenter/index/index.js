@@ -6,32 +6,33 @@ const app = getApp();
 Page({
   data: {
     userInfo: {},
-    showLoginDialog: false
+    showLoginDialog: true
   },
-  onLoad: function(options) {
+  onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
   },
-  onReady: function() {
+  onReady: function () {
 
   },
-  onShow: function() {
+  onShow: function () {
     this.setData({
       userInfo: app.globalData.userInfo,
     });
   },
-  onHide: function() {
+  onHide: function () {
     // 页面隐藏
 
   },
-  onUnload: function() {
+  onUnload: function () {
     // 页面关闭
   },
 
-  onUserInfoClick: function() {
+  onUserInfoClick: function () {
     if (wx.getStorageSync('token')) {
 
     } else {
       this.showLoginDialog();
+      console.log(11111)
     }
   },
 
@@ -41,27 +42,28 @@ Page({
     })
   },
 
-  onCloseLoginDialog () {
+  onCloseLoginDialog() {
     this.setData({
       showLoginDialog: false
     })
   },
 
-  onDialogBody () {
+  onDialogBody() {
     // 阻止冒泡
   },
 
   onWechatLogin(e) {
+    console.log(e,"eeee")
     if (e.detail.errMsg !== 'getUserInfo:ok') {
       if (e.detail.errMsg === 'getUserInfo:fail auth deny') {
         return false
       }
       wx.showToast({
-        title: '微信登录失败',
+        title: '微信登录失败1',
       })
       return false
     }
-    util.login().then((res) => {
+    util.login().then((res) => { 
       return util.request(api.AuthLoginByWeixin, {
         code: res,
         userInfo: e.detail
@@ -70,7 +72,7 @@ Page({
       console.log(res)
       if (res.errno !== 0) {
         wx.showToast({
-          title: '微信登录失败',
+          title: '微信登录失败2',
         })
         return false;
       }
@@ -88,23 +90,23 @@ Page({
     })
   },
 
-  onOrderInfoClick: function(event) {
+  onOrderInfoClick: function (event) {
     wx.navigateTo({
       url: '/pages/ucenter/order/order',
     })
   },
 
-  onSectionItemClick: function(event) {
+  onSectionItemClick: function (event) {
 
   },
 
   // TODO 移到个人信息页面
-  exitLogin: function() {
+  exitLogin: function () {
     wx.showModal({
       title: '',
-      confirmColor: '#b4282d',
+      confirmColor: '#d32f34',
       content: '退出登录？',
-      success: function(res) {
+      success: function (res) {
         if (res.confirm) {
           wx.removeStorageSync('token');
           wx.removeStorageSync('userInfo');

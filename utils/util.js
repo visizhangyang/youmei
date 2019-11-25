@@ -1,4 +1,5 @@
 var api = require('../config/api.js')
+const app = getApp()
 
 function formatTime(date) {
   var year = date.getFullYear()
@@ -29,13 +30,13 @@ function request(url, data = {}, method = "GET") {
       method: method,
       header: {
         'Content-Type': 'application/json',
-        'X-Nideshop-Token': wx.getStorageSync('token')
+        'Authorization': wx.getStorageSync('token')
       },
       success: function (res) {
         console.log("success");
 
         if (res.statusCode == 200) {
-
+          //401未登录
           if (res.data.errno == 401) {
             //需要登录后才可以操作
 
@@ -60,6 +61,18 @@ function request(url, data = {}, method = "GET") {
               });
             }).catch((err) => {
               reject(err);
+            })
+          } 
+          // 404未找到
+          else if (res.data.errno == 404){
+            wx.showToast({
+              title: '加载有误，请稍后重试!',
+            }) 
+          }
+          // 500 服务器错误
+          else if (res.data.errno == 500) {
+            wx.showToast({
+              title: '服务错误，请稍后重试!',
             })
           } else {
             resolve(res.data);
@@ -159,6 +172,11 @@ function showErrorToast(msg) {
     title: msg,
     image: '/static/images/icon_error.png'
   })
+}
+
+//阿拉丁(事件名称,参数)
+function aldEvent(eventName, options){
+  app.aldstat.sendEvent(eventName, options);
 }
 
 module.exports = {

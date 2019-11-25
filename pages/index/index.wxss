@@ -1,3 +1,4 @@
+  /* @import "/template/list/list.wxss"; */
 
 .search {
   height: 88rpx;
@@ -16,6 +17,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size:12rpx;
 }
 
 .search .icon {
@@ -30,12 +32,12 @@
   line-height: 42rpx;
   color: #666;
   padding-left: 10rpx;
-  font-size: 30rpx;
+  font-size: 24rpx;
 }
 
 .banner {
   width: 750rpx;
-  height: 417rpx;
+  height: 350rpx;
 }
 
 .banner image {
@@ -61,8 +63,8 @@
 
 .m-menu image {
   display: block;
-  width: 58rpx;
-  height: 58rpx;
+  width: 68rpx;
+  height: 68rpx;
   margin: 0 auto;
   margin-bottom: 12rpx;
 }
@@ -80,7 +82,6 @@
   width: 750rpx;
   height: auto;
   overflow: hidden;
-  background: #fff;
   color: #333;
   margin-top: 20rpx;
 }
@@ -95,7 +96,7 @@
 
 .a-section .h .txt {
   padding-right: 30rpx;
-  background: url("http://ac-3yr0g9cz.clouddn.com/2cdba05369e10f934e54.png") right 4rpx no-repeat;
+  /* background: url("http://ac-3yr0g9cz.clouddn.com/2cdba05369e10f934e54.png") right 4rpx no-repeat; */
   background-size: 16.656rpx 27rpx;
   display: inline-block;
   height: 36rpx;
@@ -149,6 +150,15 @@
   margin-left: 1rpx;
 }
 
+.a-brand .item-1:nth-child(3) {
+  border-bottom: 2rpx solid #fff;
+  border-right: 2rpx solid #fff;
+}
+
+.a-brand .item-1:nth-child(4) {
+  border-bottom: 2rpx solid #fff;
+}
+
 .a-brand .item-1:nth-child(2n+1){
   margin-left: 0;
   width: 374rpx;
@@ -199,7 +209,7 @@
   text-align: center;
   line-height: 30rpx;
   font-size: 30rpx;
-  color: #b4282d;
+  color: #d32f34;
 }
 
 .a-popular {
@@ -209,7 +219,7 @@
 }
 
 .a-popular .b .item {
-  border-top: 1px solid #d9d9d9;
+  border-top: 1px solid rgba(0, 0, 0, .05);
   margin: 0 20rpx;
   height: 264rpx;
   width: 710rpx;
@@ -260,7 +270,7 @@
 .a-popular .b .price {
   width: 456rpx;
   display: block;
-  color: #b4282d;
+  color: #d32f34;
   line-height: 50rpx;
   font-size: 33rpx;
 }
@@ -304,7 +314,7 @@
 
 .a-topic .b .np .price {
   margin-left: 20.8rpx;
-  color: #b4282d;
+  color: #d32f34;
 }
 
 .a-topic .b .desc {
@@ -379,5 +389,5 @@
   line-height: 46rpx;
   text-align: center;
   font-size: 30rpx;
-  color: #b4282d;
+  color: #d32f34;
 }

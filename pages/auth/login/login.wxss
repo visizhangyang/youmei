@@ -63,7 +63,7 @@
     color: #fff;
     font-size: 30rpx;
     width: 100%;
-    background: #b4282d;
+    background: #d32f34;
     border-radius: 6rpx;
 }
 

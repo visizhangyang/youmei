@@ -17,12 +17,14 @@ page{
   align-items: center;
   justify-content: flex-start;
   padding: 0 30.25rpx;
-  background: #333;
+  /* background:url(../static/images/bg-my.jpg); */
+  background: url(https://image-static.segmentfault.com/359/117/3591170012-5dce22ce87a2b) ;
+filter:alpha(Opacity=90);-moz-opacity:0.9;opacity: 0.9
 }
 
 .profile-info .avatar {
-  height: 148rpx;
-  width: 148rpx;
+  height: 130rpx;
+  width: 130rpx;
   border-radius: 50%;
   border: 4rpx solid #fff;
 }
@@ -41,6 +43,7 @@ page{
   line-height: 45rpx;
   color: #fff;
   font-size: 37.5rpx;
+  margin-top:20rpx;
 }
 
 .profile-info .level {
@@ -69,8 +72,8 @@ page{
     float: left;
     width: 33.33333%;
     height: 187.5rpx;
-    border-right: 1px solid rgba(0,0,0,.15);
-    border-bottom: 1px solid rgba(0,0,0,.15);
+    border-right: 1px solid rgba(0,0,0,.05);
+    border-bottom: 1px solid rgba(0,0,0,.05);
     text-align: center;
 }
 
@@ -194,4 +197,20 @@ page{
 
 .dialog-login .dialog-body button{
   margin-top: 30rpx;
+}
+
+
+.mine_wrapper{
+  width: 660rpx;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 10rpx;
+  padding:20rpx 25rpx 23rpx 25rpx;
+}
+.padding_0{
+  padding: 0;
+  width: 710rpx;
+}
+.p_b{
+  padding-bottom: 30rpx;
 }

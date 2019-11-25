@@ -117,7 +117,7 @@ view{
 }
 
 .wxParse-li,.wxParse-li-inner{
-    display: flex;
+      display: flex;
     align-items: baseline;
     margin: 10rpx 0;
 }
