@@ -1,0 +1,10 @@
+/* comments/blank/index.wxss */
+.box{
+  width: 100%;
+  background: #FFFFFF;
+  margin:10px;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+}

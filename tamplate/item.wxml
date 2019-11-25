@@ -1,0 +1,8 @@
+<!-- itemA -->
+<template name="itemA">
+  <text>{{text}}</text>
+</template>
+<!-- itemB -->
+<template name="itemB">
+  <text class="tui-menu-list"> {{text}} </text>
+</template>
