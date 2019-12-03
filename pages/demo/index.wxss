@@ -1,0 +1,5 @@
+/* pages/demo/index.wxss */
+.txt{
+  text-align: center;
+  margin-top:25%;
+}

@@ -34,7 +34,8 @@
     "pages/goods/goods",
     "pages/topicDetail/topicDetail",
     "pages/qrCode/index",
-    "pages/webview/webview"
+    "pages/webview/webview",
+    "pages/demo/index"
   ],
   "window": {
     "backgroundTextStyle": "dark",
