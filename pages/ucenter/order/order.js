@@ -1,31 +1,36 @@
-var util = require('../../../utils/util.js');
-var api = require('../../../config/api.js');
+import util from '../../../utils/util.js'
+import api from '../../../config/api.js'
 
 Page({
   data:{
-    orderList: []
+    orderList: []   //订单列表
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-
     this.getOrderList();
   },
-  getOrderList(){
-    let that = this;
-    util.request(api.OrderList).then(function (res) {
-      if (res.errno === 0) {
-        console.log(res.data);
-        that.setData({
+
+  //获取订单列表
+  getOrderList:function(){
+    let _this = this;
+    util.request(api.OrderList).then(res => {
+      if(res.errno === 0){
+        _this.setData({ 
           orderList: res.data.data
-        });
+        })
       }
-    });
-  },
-  payOrder(){
+    })
+  }, 
+
+  //去付款
+  payOrder:function(event){
+    const index = event.currentTarget.dataset.index;
+    const item = this.data.orderList[index];
     wx.redirectTo({
-      url: '/pages/pay/pay',
+      url: '/pages/pay/pay?orderId='+item.goodsList[0].order_id + '&actualPrice='+item.actual_price
     })
   },
+
   onReady:function(){
     // 页面渲染完成
   },

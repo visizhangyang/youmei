@@ -1,0 +1,8 @@
+<!--components/search/index.wxml-->
+   <!-- 搜索 -->
+   <view class="search" bindtap="searchFun">
+    <navigator url="XX" class="input">
+      <image class="icon"></image>
+      <text class="txt">商品搜索，共{{ goodsCount }}款好物</text>
+    </navigator>
+   </view>

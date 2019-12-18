@@ -1,19 +1,16 @@
-var util = require('../../utils/util.js');
-var api = require('../../config/api.js');
-var app = getApp()
+import util from '../../utils/util.js'
+import api from '../../config/api.js'
+
 Page({
     data: {
         // text:"这是一个页面"
-        topicList: [],
-        page: 1,
-        size: 10,
-        count: 0,
-        scrollTop: 0,
-        showPage: false
+      topicList: [],
+      page:1,
+      size:10,
+      showBottom:false
     },
     onLoad: function (options) {
-        // 页面初始化 options为页面跳转所带来的参数
-        this.getTopic();
+      this.getTopic()
 
     },
     onReady: function () {
@@ -28,59 +25,44 @@ Page({
     onUnload: function () {
         // 页面关闭
     },
-    nextPage: function (event) {
-      console.log();
-        var that = this;
-        if (this.data.page+1 > that.data.count / that.data.size) {
-            return true;
-        }
 
-        
-        that.setData({
-            "page": parseInt(that.data.page) + 1
-        });
-
-        this.getTopic();
-        
+    //触底加载数据
+    onReachBottom(){
+      this.getTopic();
     },
-    getTopic: function(){
-       
-        let that = this;
-         that.setData({
-            scrollTop: 0,
-            showPage: false,
-            topicList: []
-        });
-        // 页面渲染完成
-        wx.showToast({
-            title: '加载中...',
-            icon: 'loading',
-            duration: 2000
-        });
 
-        util.request(api.TopicList, { page: that.data.page, size: that.data.size }).then(function (res) {
-          if (res.errno === 0) {
-
-            that.setData({
-              scrollTop: 0,
-              topicList: res.data.data,
-              showPage: true,
-              count: res.data.count
-            });
+    //加载列表接口
+    getTopic:function(){
+      let _this = this;
+      //loading
+      wx.showToast({
+        title: '加载中...',
+        icon:'loading',
+        duration:4000
+      })
+      //加载数据
+      util.request(api.TopicList,{
+        page:_this.data.page,
+        size:_this.data.size
+      }).then((res) => {
+        if(res.errno === 0){
+          let topicListData = _this.data.topicList;
+          let getTopicList = res.data.data;
+          if(getTopicList != 0){
+            _this.setData({
+              topicList:topicListData.concat(getTopicList),
+              page:parseInt(_this.data.page) + 1
+            })
+          }else{
+            _this.setData({
+              showBottom:true
+            })
           }
-          wx.hideToast();
-        });
-        
-    },
-    prevPage: function (event) {
-        if (this.data.page <= 1) {
-            return false;
         }
 
-        var that = this;
-        that.setData({
-            "page": parseInt(that.data.page) - 1
-        });
-        this.getTopic();
+        //隐藏显示框
+        wx.hideToast()
+      })
     }
+    
 })

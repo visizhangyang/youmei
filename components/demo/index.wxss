@@ -1,0 +1,7 @@
+/* components/demo/index.wxss */
+.main{
+  margin:20rpx;
+}
+.tag-class{
+  margin-top:20rpx;
+}

@@ -108,6 +108,7 @@ page{
     height: 164rpx;
     width: 672rpx;
     border-bottom: 1px solid #f4f4f4;
+    position: relative;
 }
 
 .cart-view .item .img{
@@ -211,7 +212,11 @@ page{
 }
 
 .cart-view .item .selnum{
-    display: none;
+    position: absolute;
+    top: 45px;
+    right: 10rpx;
+    width: 33%;
+    display: flex;
 }
 
 .cart-view .item.edit .selnum{
@@ -226,6 +231,8 @@ page{
     height: 100%;
     text-align: center;
     line-height: 50rpx;
+    background: #f7f7f7;
+
 }
 
 .selnum .number{
@@ -233,8 +240,6 @@ page{
     height: 100%;
     text-align: center;
     line-height: 68.75rpx;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
     float: left;
 }
 
@@ -243,6 +248,7 @@ page{
     height: 100%;
     text-align: center;
     line-height: 50rpx;
+    background: #f7f7f7;
 }
 
 
@@ -331,6 +337,9 @@ page{
     flex: 1;
     margin: 33rpx 10rpx;
     font-size: 29rpx;
+    line-height: 34rpx;
+    font-weight: bold;
+    color: #d32f34;
 }
 
 

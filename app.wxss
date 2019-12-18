@@ -1,4 +1,3 @@
-/* @import 'template/item.wxss'; */
 /**app.wxss**/
 .container {
   box-sizing: border-box;

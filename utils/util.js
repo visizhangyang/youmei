@@ -1,26 +1,5 @@
-var api = require('../config/api.js')
-const app = getApp()
-
-function formatTime(date) {
-  var year = date.getFullYear()
-  var month = date.getMonth() + 1
-  var day = date.getDate()
-
-  var hour = date.getHours()
-  var minute = date.getMinutes()
-  var second = date.getSeconds()
-
-
-  return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
-
-function formatNumber(n) {
-  n = n.toString()
-  return n[1] ? n : '0' + n
-}
-
 /**
- * 封封微信的的request
+ * 封装微信request请求
  */
 function request(url, data = {}, method = "GET") {
   return new Promise(function (resolve, reject) {
@@ -39,13 +18,14 @@ function request(url, data = {}, method = "GET") {
           //401未登录
           if (res.data.errno == 401) {
             //需要登录后才可以操作
-
+            // 调用微信登录
             let code = null;
             return login().then((res) => {
               code = res.code;
               return getUserInfo();
             }).then((userInfo) => {
               //登录远程服务器
+              // api: auth/loginByWeixin
               request(api.AuthLoginByWeixin, { code: code, userInfo: userInfo }, 'POST').then(res => {
                 if (res.errno === 0) {
                   //存储用户信息
@@ -62,12 +42,12 @@ function request(url, data = {}, method = "GET") {
             }).catch((err) => {
               reject(err);
             })
-          } 
+          }
           // 404未找到
-          else if (res.data.errno == 404){
+          else if (res.data.errno == 404) {
             wx.showToast({
               title: '加载有误，请稍后重试!',
-            }) 
+            })
           }
           // 500 服务器错误
           else if (res.data.errno == 500) {
@@ -90,29 +70,26 @@ function request(url, data = {}, method = "GET") {
   });
 }
 
-function get(url, data = {}) {
-  return request(url, data, 'GET')
-}
-
-function post(url, data = {}) {
-  return request(url, data, 'POST')
-}
-
 /**
- * 检查微信会话是否过期
+ * 日期格式化
  */
-function checkSession() {
-  return new Promise(function (resolve, reject) {
-    wx.checkSession({
-      success: function () {
-        resolve(true);
-      },
-      fail: function () {
-        reject(false);
-      }
-    })
-  });
+function formatTime(date) {
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
+
+  var hour = date.getHours()
+  var minute = date.getMinutes()
+  var second = date.getSeconds()
+
+  return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
+
+function formatNumber(n) {
+  n = n.toString()
+  return n[1] ? n : '0' + n
+}
+
 
 /**
  * 调用微信登录
@@ -134,6 +111,9 @@ function login() {
   });
 }
 
+/**
+ * 获取用户信息
+ */
 function getUserInfo() {
   return new Promise(function (resolve, reject) {
     wx.getUserInfo({
@@ -152,9 +132,26 @@ function getUserInfo() {
   });
 }
 
-function redirect(url) {
+/**
+ * 检查微信会话是否过期
+ */
+function checkSession() {
+  return new Promise(function (resolve, reject) {
+    wx.checkSession({
+      success: function () {
+        resolve(true);
+      },
+      fail: function () {
+        reject(false);
+      }
+    })
+  });
+}
 
-  //判断页面是否需要登录
+/**
+ * 判断页面是否需要登录
+ */
+function redirect(url) {
   if (false) {
     wx.redirectTo({
       url: '/pages/auth/login/login'
@@ -167,6 +164,9 @@ function redirect(url) {
   }
 }
 
+/**
+ * 错误提示框
+ */
 function showErrorToast(msg) {
   wx.showToast({
     title: msg,
@@ -174,21 +174,15 @@ function showErrorToast(msg) {
   })
 }
 
-//阿拉丁(事件名称,参数)
-function aldEvent(eventName, options){
-  app.aldstat.sendEvent(eventName, options);
-}
 
 module.exports = {
   formatTime,
-  request,
-  get,
-  post,
   redirect,
   showErrorToast,
   checkSession,
   login,
   getUserInfo,
+  request
 }
 
 

@@ -1,6 +1,8 @@
 var app = getApp();
 var util = require('../../utils/util.js');
 var api = require('../../config/api.js');
+import pay from '../../services/pay.js'
+
 
 Page({
   data: {
@@ -8,6 +10,7 @@ Page({
     actualPrice: 0.00
   },
   onLoad: function (options) {
+    console.log(options,"options")
     // 页面初始化 options为页面跳转所带来的参数
     this.setData({
       orderId: options.orderId,

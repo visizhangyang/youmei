@@ -1,5 +1,5 @@
-const drawing = require("../../utils/drawing");
-const qrcode = require("../../utils/qrCode");
+// const drawing = require("../../utils/drawing");
+// const qrcode = require("../../utils/qrCode");
 const app = getApp();
 
 const context = wx.createCanvasContext("myCanvas");

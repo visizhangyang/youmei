@@ -1,2 +1,38 @@
 <!--pages/demo/index.wxml-->
-<view class="txt">欢迎！</view>
+<!-- <view class="txt">欢迎！<demoComponent /> </view> -->
+<!-- 图片 -->
+<!-- <image src="../../static/images/banner-4.jpg" /> -->
+
+<!-- Flex 结构 -->
+<!-- <view class="userContainer">
+ <view class="user-item box">1</view>
+ <view class="user-item box">2</view>
+ <view class="user-item box1">3</view>
+ <view class="user-item box1">4</view>
+ <view class="user-item box1">5</view>
+</view> -->
+
+<!-- 父传子 -->
+<demoComponent url="www.boxuegu.com" bind:up='_up' >
+  <text slot='before'>before   </text>
+  <text slot='after'>after</text>
+</demoComponent>
+{{ctx}}
+
+<!-- 通用组件不留空白 -->
+<view class="blank">
+  <blankComponent />
+</view>
+
+<!-- getUserInfo -->
+<button class="margin"
+        open-type="getUserInfo"
+        bindgetuserinfo="bindGetUserInfo">getUserInfo</button>
+
+<!-- 头像和名称 (一)-->
+<!-- <image src="{{userInfo.avatarUrl}}"></image>
+<text>{{userInfo.nickName}}</text> -->
+
+<!-- 头像和名称 (二)-->
+<!-- <open-data type="userAvatarUrl"></open-data>
+<open-data type="userNickName"></open-data> -->

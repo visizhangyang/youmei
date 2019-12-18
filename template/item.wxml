@@ -1,0 +1,9 @@
+<!-- itemA -->
+<template name="itemA">
+  <text>{{text}}</text>
+</template>
+  
+<!-- itemB -->
+<template name="itemB">
+  <text class="itemStyle">{{ text }}</text>
+</template>

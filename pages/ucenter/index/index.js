@@ -6,10 +6,16 @@ const app = getApp();
 Page({
   data: {
     userInfo: {},
-    showLoginDialog: true
+    showLoginDialog:false
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
+    const getNickName = wx.getStorageSync('userInfo')
+    if (getNickName){
+      this.setData({
+        showLoginDialog: false
+      })
+    }
   },
   onReady: function () {
 
@@ -27,67 +33,8 @@ Page({
     // 页面关闭
   },
 
-  onUserInfoClick: function () {
-    if (wx.getStorageSync('token')) {
-
-    } else {
-      this.showLoginDialog();
-      console.log(11111)
-    }
-  },
-
-  showLoginDialog() {
-    this.setData({
-      showLoginDialog: true
-    })
-  },
-
-  onCloseLoginDialog() {
-    this.setData({
-      showLoginDialog: false
-    })
-  },
-
   onDialogBody() {
     // 阻止冒泡
-  },
-
-  onWechatLogin(e) {
-    console.log(e,"eeee")
-    if (e.detail.errMsg !== 'getUserInfo:ok') {
-      if (e.detail.errMsg === 'getUserInfo:fail auth deny') {
-        return false
-      }
-      wx.showToast({
-        title: '微信登录失败1',
-      })
-      return false
-    }
-    util.login().then((res) => { 
-      return util.request(api.AuthLoginByWeixin, {
-        code: res,
-        userInfo: e.detail
-      }, 'POST');
-    }).then((res) => {
-      console.log(res)
-      if (res.errno !== 0) {
-        wx.showToast({
-          title: '微信登录失败2',
-        })
-        return false;
-      }
-      // 设置用户信息
-      this.setData({
-        userInfo: res.data.userInfo,
-        showLoginDialog: false
-      });
-      app.globalData.userInfo = res.data.userInfo;
-      app.globalData.token = res.data.token;
-      wx.setStorageSync('userInfo', JSON.stringify(res.data.userInfo));
-      wx.setStorageSync('token', res.data.token);
-    }).catch((err) => {
-      console.log(err)
-    })
   },
 
   onOrderInfoClick: function (event) {
@@ -100,7 +47,69 @@ Page({
 
   },
 
-  // TODO 移到个人信息页面
+  // 点击事件
+  onUserInfoClick:function(){
+    if(!wx.getStorageSync('token')){
+      //显示登录模块
+      this.showLoginDialog();
+    }
+  },
+
+  //显示登录模块
+  showLoginDialog(){
+    this.setData({
+      showLoginDialog:true
+    })
+  },
+
+  //隐藏登录模块
+  onCloseLoginDialog() {
+    this.setData({
+      showLoginDialog: false
+    })
+  },
+
+  // 微信登录功能
+  onWechatLogin:function(e){
+    //是否成功
+    console.log(e.detail.errMsg)
+    if (e.detail.errMsg == "getUserInfo:ok"){
+      //加载接口
+      util.login().then((res) =>{
+        return util.request(api.AuthLoginByWeixin,
+               {code:res,userInfo:e.detail},
+               'POST')
+      }).then((res) =>{
+        if(res.errno !== 0){
+          wx.showToast({
+            title: '服务器错误，请稍后重试！',
+          })
+        }else{
+          //设置用户信息
+          this.setData({
+            userInfo: res.data.userInfo,
+            showLoginDialog: false
+          })
+
+          // 存储数据（用户信息，Token）
+          const getUserInfo = res.data.userInfo
+          const getToken = res.data.token
+          app.globalData.userInfo = getUserInfo;
+          app.globalData.token = getToken;
+          wx.setStorageSync('userInfo', JSON.stringify(getUserInfo))
+          wx.setStorageSync('token', getToken)
+        }
+      }).catch((err) =>{
+        console.log(err)
+      })
+    }else{
+      wx.showToast({
+        title: '微信录制失败',
+      })
+    }
+  },
+
+  // 退出登录
   exitLogin: function () {
     wx.showModal({
       title: '',

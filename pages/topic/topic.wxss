@@ -1,7 +1,5 @@
 page ,.container{
    width: 750rpx;
-    height: 100%;
-    overflow: hidden;
     background: #f4f4f4;
 }
 .topic-list{
@@ -91,4 +89,10 @@ page ,.container{
 
 .page .disabled{
     color: #ccc;
+}
+
+.bottomBox{
+  text-align: center;
+  color: #999;
+  padding:25rpx 0;
 }

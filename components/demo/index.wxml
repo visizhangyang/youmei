@@ -1,0 +1,12 @@
+<!--components/demo/index.wxml-->
+<view class="main">
+  <text>{{url}}</text>
+  <button bindtap="upEvent">子传父</button>
+
+  <!-- slot -->
+  <view class="tag-class">
+    <text>显示：</text>
+    <slot name="before"></slot>
+    <slot name="after"></slot>
+  </view>
+</view>

@@ -1,5 +1,6 @@
 <view class="container">
-    <scroll-view class="topic-list" scroll-y="true" scroll-top="{{scrollTop}}">
+    <view class="topic-list">
+        <!-- 专题列表 -->
         <navigator class="item" wx:for="{{topicList}}" wx:key="{{item.id}}" url="../topicDetail/topicDetail?id={{item.id}}">
             <image class="img" src="{{item.scene_pic_url}}"></image>
             <view class="info">
@@ -8,9 +9,9 @@
                 <text class="price">{{item.price_info}}元起</text>
             </view>
         </navigator>
-        <view class="page" wx:if="{{showPage}}">
-            <view class="prev {{ page <= 1 ? 'disabled' : ''}}" bindtap="prevPage">上一页</view>
-            <view class="next {{ (count / size) < page +1 ? 'disabled' : ''}}" bindtap="nextPage">下一页</view>
+        <!-- 无数据 -->
+        <view class="bottomBox" wx:if="{{showBottom}}">
+            已经到底了
         </view>
-    </scroll-view>
+    </view>
 </view>

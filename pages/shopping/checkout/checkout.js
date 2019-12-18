@@ -1,54 +1,36 @@
-var util = require('../../../utils/util.js');
-var api = require('../../../config/api.js');
-const pay = require('../../../services/pay.js');
-
-var app = getApp();
+import util from '../../../utils/util.js';
+import api from '../../../config/api.js';
+import pay from '../../../services/pay.js'
 
 Page({
   data: {
-    checkedGoodsList: [],
-    checkedAddress: {},
-    checkedCoupon: [],
-    couponList: [],
+    checkedGoodsList: [],  //已选择商品列表
+    checkedAddress: {},    //选择地址
+    checkedCoupon: [],     //选择优惠券
+    couponList: [],        //优惠券列表
     goodsTotalPrice: 0.00, //商品总价
     freightPrice: 0.00,    //快递费
     couponPrice: 0.00,     //优惠券的价格
     orderTotalPrice: 0.00,  //订单总价
     actualPrice: 0.00,     //实际需要支付的总价
-    addressId: 0,
-    couponId: 0
+    addressId: 0,          //地址ID
+    couponId: 0            //优惠券ID
   },
   onLoad: function (options) {
-
     // 页面初始化 options为页面跳转所带来的参数
-
-    try {
-      var addressId = wx.getStorageSync('addressId');
-      if (addressId) {
-        this.setData({
-          'addressId': addressId
-        });
-      }
-
-      var couponId = wx.getStorageSync('couponId');
-      if (couponId) {
-        this.setData({
-          'couponId': couponId
-        });
-      }
-    } catch (e) {
-      // Do something when catch error
-    }
-
-
+    this.getCheckoutInfo();
   },
-  getCheckoutInfo: function () {
-    let that = this;
-    util.request(api.CartCheckout, { addressId: that.data.addressId, couponId: that.data.couponId }).then(function (res) {
-      if (res.errno === 0) {
-        console.log(res.data);
-        that.setData({
-          checkedGoodsList: res.data.checkedGoodsList,
+
+  //获取选中商品详情
+  getCheckoutInfo:function(){
+    let _this = this;
+    util.request(api.CartCheckout,{
+      addressId: _this.data.addressId,
+      couponId: _this.data.couponId
+    }).then(res =>{
+      if(res.errno === 0){
+        _this.setData({
+          checkedGoodsList: res.data.checkedGoodsList,  
           checkedAddress: res.data.checkedAddress,
           actualPrice: res.data.actualPrice,
           checkedCoupon: res.data.checkedCoupon,
@@ -57,16 +39,19 @@ Page({
           freightPrice: res.data.freightPrice,
           goodsTotalPrice: res.data.goodsTotalPrice,
           orderTotalPrice: res.data.orderTotalPrice
-        });
+        })
       }
-      wx.hideLoading();
-    });
+    })
   },
+  
+  //选择地址
   selectAddress() {
     wx.navigateTo({
       url: '/pages/shopping/address/address',
     })
   },
+
+  //添加地址
   addAddress() {
     wx.navigateTo({
       url: '/pages/shopping/addressAdd/addressAdd',
@@ -78,10 +63,6 @@ Page({
   },
   onShow: function () {
     // 页面显示
-    wx.showLoading({
-      title: '加载中...',
-    })
-    this.getCheckoutInfo();
 
   },
   onHide: function () {
@@ -92,30 +73,53 @@ Page({
     // 页面关闭
 
   },
-  submitOrder: function () {
-    console.log(this.data.checkedAddress)
-    console.log(this.data.addressId)
-    
-    const addressId = this.data.checkedAddress.id
-    if (addressId <= 0) {
-      util.showErrorToast('请选择收货地址');
+
+  //去付款
+  submitOrder:function(){
+    const addressId = this.data.checkedAddress.id;
+    if (addressId <= 0){
+      wx.showToast({
+        title: '请选择收货地址',
+      }) 
       return false;
     }
-    util.request(api.OrderSubmit, { addressId: addressId, couponId: this.data.couponId }, 'POST').then(res => {
-      if (res.errno === 0) {
+    //提交订单接口
+    util.request(api.OrderSubmit,{
+      addressId: addressId,
+      couponId: this.data.couponId
+    },'POST').then(res =>{
+      if(res.errno == 0){ 
         const orderId = res.data.orderInfo.id;
+        //获取微信统一下单prepay_id
         pay.payOrder(parseInt(orderId)).then(res => {
           wx.redirectTo({
-            url: '/pages/payResult/payResult?status=1&orderId=' + orderId
-          });
-        }).catch(res => {
+            url: '/pages/payResult/payResult?status=1&orderId' + orderId,
+          })
+        }).catch(err =>{
           wx.redirectTo({
-            url: '/pages/payResult/payResult?status=0&orderId=' + orderId
-          });
-        });
-      } else {
-        util.showErrorToast('下单失败');
+            url: '/pages/payResult/payResult?status=0&orderId' + orderId,
+          })
+        })
+      }else{
+        wx.showToast({ 
+          title: '下单失败',
+        })
       }
-    });
+    })
+  },
+  
+  //复制至剪贴板
+  setClipboardData:function(event){
+    let orderId = event.currentTarget.dataset.orderid;
+    wx.setClipboardData({
+      data: orderId,
+      success(res){
+        wx.getClipboardData({
+          success(res){
+            console.log(res.data)
+          }
+        })
+      }
+    })
   }
 })

@@ -1,20 +1,25 @@
 <view class="container">
-  <swiper class="goodsimgs" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
-    <swiper-item wx:for="{{gallery}}" wx:key="{{item.id}}">
+  <!-- 商品图片swiper -->
+  <swiper class="goodsimgs" indicator-dots="true" autoplay="true" interval="3000" duration="1000" >
+    <swiper-item wx:for="{{gallery}}" wx:key="{{item.id}}" data-currentUrl="{{item.img_url}}" bindtap='showPreview'>
       <image src="{{item.img_url}}" background-size="cover"></image>
     </swiper-item>
   </swiper>
+
+  <!-- 提示信息 -->
   <view class="service-policy">
     <view class="item">30天无忧退货</view>
     <view class="item">48小时快速退款</view>
     <view class="item">满88元免邮费</view>
   </view>
+
+  <!-- 商品详情 -->
   <view class="goods-info">
     <view class="c">
       <text class="name">{{goods.name}}</text>
       <text class="desc">{{goods.goods_brief}}</text>
       <text class="price">￥{{goods.retail_price}}</text>
-      <view class="brand" wx:if="{{brand.name}}">
+      <view class="brand" wx:if="{{brand.name}}">closeAttr
         <navigator url="../brandDetail/brandDetail?id={{brand.brandId}}">
           <text>{{brand.name}}</text>
         </navigator>
@@ -25,14 +30,8 @@
     <view class="t">请选择规格数量</view>
     <image class="i" src="../../static/images/address_right.png" background-size="cover"></image>
   </view>
-  <!--<view class="section-nav section-act">
-      <view class="t">
-        <view class="label">1个促销:</view>
-        <view class="tag">万圣趴</view>
-        <view class="text">全场满499，额外送糖果</view>
-      </view>
-      <image class="i" src="../../static/images/address_right.png" background-size="cover"></image>
-    </view>-->
+
+  <!-- 评价   -->
   <view class="comments" wx:if="{{comment.count > 0}}">
     <view class="h">
       <navigator url="../comment/comment?valueId={{goods.id}}&typeId=0">
@@ -59,6 +58,8 @@
       </view>
     </view>
   </view>
+
+  <!-- 商品参数 -->
   <view class="goods-attr">
     <view class="t">商品参数</view>
     <view class="l">
@@ -74,7 +75,7 @@
     <template is="wxParse" data="{{wxParseData:goodsDetail.nodes}}" />
   </view>
 
-
+  <!-- 常见问题 -->
   <view class="common-problem">
     <view class="h">
       <view class="line"></view>
@@ -93,6 +94,8 @@
     </view>
   </view>
 
+
+  <!-- 大家都在看(相关推荐) -->
   <view class="related-goods" wx:if="{{relatedGoods.length > 0}}">
     <view class="h">
       <view class="line"></view>
@@ -127,7 +130,7 @@
       <view class="spec-item" wx:for="{{specificationList}}" wx:key="{{item.specification_id}}">
         <view class="name">{{item.name}}</view>
         <view class="values">
-          <view class="value {{vitem.checked ? 'selected' : ''}}" bindtap="clickSkuValue" wx:for="{{item.valueList}}" wx:for-item="vitem" wx:key="{{vitem.id}}" data-value-id="{{vitem.id}}" data-name-id="{{vitem.specification_id}}">{{vitem.value}}</view>
+          <view class="value {{vitem.checked ? 'selected' : ''}}"  wx:for="{{item.valueList}}" wx:for-item="vitem" wx:key="{{vitem.id}}" data-value-id="{{vitem.id}}" data-name-id="{{vitem.specification_id}}" bindtap="clickSkuValue">{{vitem.value}}</view>
         </view>
       </view>
 
@@ -142,16 +145,20 @@
     </view>
   </view>
 </view>
+
+<!-- 操作 -->
 <view class="bottom-btn">
+  <!-- 收藏 -->
   <view class="l l-collect" bindtap="addCannelCollect">
     <image class="icon" src="{{ collectBackImage }}"></image>
   </view>
+  <!-- 购物车 -->
   <view class="l l-cart">
     <view class="box">
       <text class="cart-count">{{cartGoodsCount}}</text>
-      <image bindtap="openCartPage" class="icon" src="/static/images/ic_menu_shoping_nor.png"></image>
+      <image class="icon" bindtap="gotoCartPage" src="/static/images/ic_menu_shoping_nor.png"></image>
     </view>
   </view>
-  <view class="c">立即购买</view>
+  <!-- 加入购物车 -->
   <view class="r" bindtap="addToCart">加入购物车</view>
 </view>

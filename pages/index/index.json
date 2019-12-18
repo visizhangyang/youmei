@@ -1,7 +1,5 @@
 {
   "usingComponents": {
-    "blank": "/components/blank/index"
-  },
-  "navigationBarTitleText": "宝贝详情",
-  "enablePullDownRefresh": true
+    "blankComponent":"/components/blank/index"
+  }
 }

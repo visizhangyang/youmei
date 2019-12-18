@@ -1,2 +1,4 @@
 <!--comments/blank/index.wxml-->
-<view class="box">blank</view>
+<view class="mod">
+  <view class="box">距活动时间还有01:03:56</view>
+</view>
