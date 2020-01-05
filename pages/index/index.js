@@ -1,7 +1,8 @@
 // pages/index/index.js
 import util from '../../utils/util.js'
 import api from '../../config/api.js'
-
+import shareList from '../../utils/shareList.js'
+// import jsBase64 from 'js-base64';
 Page({
 
   /**
@@ -13,7 +14,13 @@ Page({
     channel: [], // 分类数据
     brands:[],   // 品牌
     hotGoods:[], // 人气推荐
-    topics:[]    // 专题精选 
+    topics:[],    // 专题精选 
+    query: {
+      bg_color: "orange",
+      color: "#000",
+      flag: 0,
+      name: "首页"
+    } 
   },
 
   /**
@@ -29,9 +36,37 @@ Page({
       _this.setData({
         goodsCount: res.data.goodsCount
       })
+      //缓存
+      wx.setStorage({
+        key: 'goodsCount',
+        data: res.data.goodsCount,
+      })
     })
+
+    //加密解密
+    // console.log(jsBase64.Base64.encode("haha"),"加密");
+    // console.log(jsBase64.Base64.decode("aGFoYQ=="),"解密")
   },
 
+  //声明变量
+  scrollStatus:false,
+
+  //倒计时显示
+  onPageScroll:function(e){
+    //增加scrollStatus中间状态来判断
+    if (e.scrollTop > 120) {
+      this.scrollStatus = true
+    } else {
+      this.scrollStatus = false
+    }
+
+    //中间状态与scrollTop比较
+    if(this.scrollStatus != this.data.scrollTop){
+      this.setData({
+        scrollTop:!this.data.scrollTop
+      })
+    }
+  },
 
   getIndexData:function(){
     let _this = this;
@@ -94,10 +129,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    let shareHome = shareList.shareFun('home');
     return {
-      title:"邀请函",
+      title: shareHome.title,
       path:'/pages/index/index',
-      imageUrl:"/static/images/banner-3.jpeg",
+      imageUrl: shareHome.imgUrl,
       success:function(res){
         //转发成功
         if(res.errMsg == 'shareAppMessage:ok'){

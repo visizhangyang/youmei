@@ -2,20 +2,25 @@ const util = require('../../../utils/util.js');
 const api = require('../../../config/api.js');
 const user = require('../../../services/user.js');
 const app = getApp();
-
+ 
 Page({
   data: {
     userInfo: {},
-    showLoginDialog:false
+    showLoginDialog:true
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     const getNickName = wx.getStorageSync('userInfo')
     if (getNickName){
-      this.setData({
-        showLoginDialog: false
-      })
+      this.setData({ 
+        showLoginDialog: false 
+      })  
     }
+  },
+
+  //重新加载数据
+  reload:function(){
+    this.onShow();
   },
   onReady: function () {
 
@@ -56,9 +61,9 @@ Page({
   },
 
   //显示登录模块
-  showLoginDialog(){
+  showLoginDialog() {
     this.setData({
-      showLoginDialog:true
+      showLoginDialog: true
     })
   },
 
@@ -68,47 +73,7 @@ Page({
       showLoginDialog: false
     })
   },
-
-  // 微信登录功能
-  onWechatLogin:function(e){
-    //是否成功
-    console.log(e.detail.errMsg)
-    if (e.detail.errMsg == "getUserInfo:ok"){
-      //加载接口
-      util.login().then((res) =>{
-        return util.request(api.AuthLoginByWeixin,
-               {code:res,userInfo:e.detail},
-               'POST')
-      }).then((res) =>{
-        if(res.errno !== 0){
-          wx.showToast({
-            title: '服务器错误，请稍后重试！',
-          })
-        }else{
-          //设置用户信息
-          this.setData({
-            userInfo: res.data.userInfo,
-            showLoginDialog: false
-          })
-
-          // 存储数据（用户信息，Token）
-          const getUserInfo = res.data.userInfo
-          const getToken = res.data.token
-          app.globalData.userInfo = getUserInfo;
-          app.globalData.token = getToken;
-          wx.setStorageSync('userInfo', JSON.stringify(getUserInfo))
-          wx.setStorageSync('token', getToken)
-        }
-      }).catch((err) =>{
-        console.log(err)
-      })
-    }else{
-      wx.showToast({
-        title: '微信录制失败',
-      })
-    }
-  },
-
+  
   // 退出登录
   exitLogin: function () {
     wx.showModal({

@@ -2,7 +2,10 @@
 
 <!--首页-->
 <view class="container">
- 
+  <!-- 自定义导航 -->
+  <!-- <nav my-property="{{query}}"/>  
+  <navigator url="/pages/navShow/index">自定义导航</navigator> -->
+
    <!-- template 模板 -->
    <!-- <template is="itemA" data="{{text:'forbar'}}"></template>
    <template is="itemB" data="{{text:'forbar1'}}"></template> -->
@@ -27,7 +30,7 @@
    </view>
 
   <!-- 不留空白组件 -->
-  <blankComponent />
+  <blankComponent wx:if="{{scrollTop}}" /> 
 
    <!-- 二级分类 -->
    <view class="m-menu">
@@ -61,7 +64,7 @@
    </view>
 
    <!-- 人气推荐 -->
-   <view class="a-section a-popular" wx:if="{{hotGoods.length > 0}}">
+   <view class="a-section a-popular" wx:if="{{ hotGoods.length > 0 }}">
     <view class="h">
       <navigator url='xx'>
         <text class="txt">人气推荐</text>
@@ -84,7 +87,7 @@
    </view>
    
    <!-- 专题精选 -->
-   <view class="a-section a-topic" wx:if="{{topics.length > 0}}">
+   <view class="a-section a-topic" wx:if="{{ topics.length > 0 }}">
     <view class="h">
       <navigator url='xx'>
         <text class="txt">专题精选</text>

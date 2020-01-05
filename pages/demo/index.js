@@ -9,6 +9,12 @@ Page({
       content:'不错',
       nums:11
     },
+    query: {
+      "bg_color": "orange", 
+      "color": "#000",
+      "flag":3,
+      "name": "我是自定义标题"
+    },
     userInfo:{}
   },
 
@@ -131,6 +137,24 @@ Page({
     const userInfo = e.detail.userInfo
     this.setData({
       userInfo: userInfo
+    })
+  },
+
+  //navgateToMini
+  navgateToMini:function(){
+    wx.navigateToMiniProgram({
+      appId: 'wxfbade83540e159c7',
+      path:'page/index/index?id=111',
+      extraData:{
+        index:"123456"
+      },
+      envVersion:'release',
+      success(res){
+        console.log(res)
+      },
+      fail(err){
+        console.log(err)
+      }
     })
   }
 })

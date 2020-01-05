@@ -48,5 +48,7 @@
       <view class="checkout" bindtap="checkoutOrder" wx:if="{{!isEditCart}}">下单</view>
     </view>
   </view>
-
 </view>
+
+<!-- 登录模块 -->
+<login showLoginDialog="{{showLoginDialog}}" bind:userinfo="getCartList"></login>

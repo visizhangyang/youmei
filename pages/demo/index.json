@@ -1,6 +1,9 @@
 {
   "usingComponents": { 
     "demoComponent": "/components/demo/index",
-    "blankComponent": "/components/blank/index"
+    "blankComponent": "/components/blank/index",
+    "moduleA": "/components/moduleA/index",
+    "moduleB": "/components/moduleB/index",
+    "nav": "/components/nav/index"
    }
 }

@@ -1,6 +1,7 @@
+<!--pages/qrCode/index.wxml-->
 <view>
-    <canvas canvas-id="myCanvas" bindtap="longClick" />
-    <view class="qrCode">
-        <canvas canvas-id="qrCodeCanvas" />
-    </view>
+  <canvas canvas-id="myCanvas" bindtap="longClick"></canvas>
+  <view class="qrCode">  
+    <canvas canvas-id="qrCodeCanvas"></canvas>
+  </view>
 </view>

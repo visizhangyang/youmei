@@ -1,3 +1,4 @@
+/* pages/qrCode/index.wxss */
 canvas {
   /* position: fixed;  */
   width: 100vw;

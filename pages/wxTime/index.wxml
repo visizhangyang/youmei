@@ -1,0 +1,10 @@
+<!--pages/wxTime/index.wxml-->
+<button bindtap="clearTimeout">清除</button>
+<!-- 第一个 -->
+<view class='tui-countdown-content' wx:for="{{countDownList}}" wx:key="index">
+  剩余
+  <text class='tui-conutdown-box'>{{item.day}}</text>天
+  <text class='tui-conutdown-box'>{{item.hou}}</text>时
+  <text class='tui-conutdown-box'>{{item.min}}</text>分
+  <text class='tui-conutdown-box tui-countdown-bg'>{{item.sec}}</text>秒
+</view>

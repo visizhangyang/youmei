@@ -1,5 +1,8 @@
 {
   "navigationBarTitleText": "我的",
   "navigationBarTextStyle": "black",
-  "backgroundColor": "#f4f4f4"
+  "backgroundColor": "#f4f4f4",
+  "usingComponents":{
+    "login":"/components/login/index"
+  }
 }

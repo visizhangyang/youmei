@@ -12,6 +12,8 @@
  <view class="user-item box1">5</view>
 </view> -->
 
+<nav my-property='{{query}}' />
+
 <!-- 父传子 -->
 <demoComponent url="www.boxuegu.com" bind:up='_up' >
   <text slot='before'>before   </text>
@@ -36,3 +38,19 @@
 <!-- 头像和名称 (二)-->
 <!-- <open-data type="userAvatarUrl"></open-data>
 <open-data type="userNickName"></open-data> -->
+
+<!-- 分包加载 -->
+<navigator url="/packageA/pages/test/index">加载分包</navigator>
+
+<!-- 跳转第三方小程序 -->
+<button bindtap="navgateToMini">跳转第三方小程序</button>
+ 
+<!-- webview -->
+<navigator url="/pages/webview/index?url=http://www.boxuegu.com&query=123">webview</navigator>
+
+<!-- behavior -->
+<moduleA address="北京" type="1"/>
+<moduleB address="上海" type="2"/>
+
+
+<text>倒计时：{{wxTimerList['wxTimer1'].wxTimer}}</text>

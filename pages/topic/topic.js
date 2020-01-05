@@ -3,7 +3,6 @@ import api from '../../config/api.js'
 
 Page({
     data: {
-        // text:"这是一个页面"
       topicList: [],
       page:1,
       size:10,

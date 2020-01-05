@@ -1,4 +1,4 @@
-// pages/mulv/index.js
+// pages/search/index.js
 import util from '../../utils/util.js'
 import api from '../../config/api.js'
 
@@ -15,7 +15,7 @@ Page({
       hotKeyword:[],
       categoryFilter:false,
       currentSortType:'default',
-      currentSortOrder:'',
+      currentSortOrder:'', 
       filterCategory:[],
       page:1,
       size:20,
@@ -100,6 +100,7 @@ searchIcon:"http://nos.netease.com/mailpub/hxm/yanxuan-wap/p/20150730/style/img/
 
   //点击列表关键词
   onKeywordTap:function(event){
+    console.log(event,"event")
     this.getSearchResult(event.target.dataset.keyword);
   },
 
@@ -115,10 +116,11 @@ searchIcon:"http://nos.netease.com/mailpub/hxm/yanxuan-wap/p/20150730/style/img/
       keyword:keyword,
       page:1,
       categoryId:0,
-      goodsList:[]
+      goodsList:[],
+      searchStatus:true
     })
     //请求列表数据
-    this.getGoodsList();
+    // this.getGoodsList();
   },
 
   // 获取搜索列表

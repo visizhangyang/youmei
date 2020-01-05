@@ -7,7 +7,7 @@
       <input name="input" class="keywrod" focus='true' bindinput="inputChange" bindfocus="inputFocus" bindconfirm="onKeywrodConfirm" confirm-type="search" placeholder="{{defaultKeyword.keyword}}" value="{{keyword}}"/>
   
       <!-- 删除ICON -->
-      <image class="del" wx:if="{{keyword}}" bindtap="clearKeyword" src="{{deteleIcon}}"></image>
+      <image class="del" wx:if="{{keyword}}" bindtap="xf" src="{{deteleIcon}}"></image>
     </view>
     <view class="right" bindtap="closeSearch">取消</view>
   </view>
@@ -35,40 +35,6 @@
   </view>
   </view>
 
-  <!-- 搜索列表 -->
-  <view class="search-result" wx:if="{{ searchStatus && goodsList.length}}">
-    <view class="sort">
-    <view class="sort-box">
-      <view class="item {{currentSortType == 'default' ? 'active' : ''}}" bindtap="openSortFilter" id="defaultSort">
-        <text class="txt">综合</text>
-      </view> 
-      <view class="item by-price {{currentSortType == 'price' ? 'active' : ''}} {{currentSortOrder == 'asc'  ? 'asc' : 'desc'}}" bindtap="openSortFilter" id="priceSort">
-        <text class="txt">价格</text> 
-      </view>
-      <view class="item {{currentSortType == 'category' ? 'active' : ''}}" bindtap="openSortFilter" id="categoryFilter">
-        <text class="txt">分类</text>
-      </view>
-    </view>
-    <!-- 分类二级列表 -->
-    <view class="sort-box-category" wx-if="{{categoryFilter}}"> 
-      <view class="item {{item.checked ? 'active' : ''}}" wx:for="{{filterCategory}}" wx:key="cate-{{item.id}}" data-category-index="{{index}}"  bindtap="setectCategory">{{item.name}}</view>
-    </view>
-  </view>
-  <view class="cate-item">
-    <view class="b">
-      <!-- 搜索列表 -->
-      <navigator class="item {{(iindex + 1) % 2 == 0 ? 'item-b' : ''}}" url="/pages/goods/goods?id={{iitem.id}}" wx:for="{{goodsList}}" wx:for-item="iitem" wx:for-index="iindex">
-        <image class="img" src="{{iitem.list_pic_url}}" background-size="cover"></image>
-        <text class="name">{{iitem.name}}</text>
-        <text class="price">￥{{iitem.retail_price}}</text>
-      </navigator>
-    </view>
-  </view>
-  </view>
-
-  <!-- 未搜索列表结果 -->
-  <view class="search-result-empty" wx:if="{{!goodsList.length && searchStatus}}">
-    <image class="icon" src="{{noDataIcon}}"></image>
-    <text class="text">您寻找的商品还未上架</text>
-  </view>
+  <!-- search -->
+  <search keyword="{{keyword}}" searchStatus="{{searchStatus}}"></search>
 </scroll-view>

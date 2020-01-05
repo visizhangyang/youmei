@@ -58,7 +58,7 @@ Page({
           if (currentIndex > navListCount / 2 && navListCount > 5) {
             that.setData({
               scrollLeft: currentIndex * 60
-            });
+            }); 
           }
           that.getGoodsList();
 
@@ -81,7 +81,7 @@ Page({
   getGoodsList: function () {
     var that = this;
 
-    util.request(api.GoodsList, {categoryId: that.data.id, page: that.data.page, size: that.data.size})
+    util.request(api.SearchGoodsList, {categoryId: that.data.id, page: that.data.page, size: that.data.size})
       .then(function (res) {
         that.setData({
           goodsList: res.data.goodsList,

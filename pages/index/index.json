@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "blankComponent":"/components/blank/index"
+    "blankComponent":"/components/blank/index",
+    "nav": "/components/nav/index" 
   }
 }

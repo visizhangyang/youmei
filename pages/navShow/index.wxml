@@ -1,0 +1,4 @@
+<!--pages/navShow/index.wxml-->
+<nav my-property="{{query}}"/>
+
+<text>pages/navShow/index.wxml</text>

@@ -1,12 +1,15 @@
-// const drawing = require("../../utils/drawing");
-// const qrcode = require("../../utils/qrCode");
-const app = getApp();
+// pages/qrCode/index.js
+// import drawing  from '../../utils/drawing.js'
+const drawing = require('../../utils/drawing.js')
 
 const context = wx.createCanvasContext("myCanvas");
 const deviceWidth = wx.getSystemInfoSync().windowWidth;
 const bgHeight = (deviceWidth * 1334) / 750;
 
 Page({
+  /**
+   * 页面的初始数据
+   */
   data: {
     expressData: {
       imgPath:
@@ -53,199 +56,210 @@ Page({
     }
   },
 
-  onLoad: function() {
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    // this.drawBackgroudImage();
+    // this.drawAvatar();
+    // this.drawProduct();
     this.drawCanvasImg();
   },
 
-  // 画图
-  drawCanvasImg: function() {
+  //整体画图
+  drawCanvasImg:function(){
     wx.showLoading({
-      title: "加载中"
-    });
+      title: '加载中',
+    })
+    // 1.加载背景图
     this.drawBackgroudImage().then(() => {
+      // 2.加载头像，产品图，文案
       Promise.all([this.drawAvatar(), this.drawProduct()]).then(() => {
         this.drawQrCodeImage();
-        this.saveCanvasToLocal("qrCodeCanvas").then(localPath => {
+        this.saveCanvasToLocal('qrCodeCanvas').then(localPath => {
+          const qrCodeUrl = this.data.expressData.qrCodeUrl;
           context.drawImage(
             localPath,
-            deviceWidth * (this.data.expressData.qrCodeUrl.x / 375),
-            deviceWidth * (this.data.expressData.qrCodeUrl.y / 375),
-            deviceWidth * (this.data.expressData.qrCodeUrl.width / 375),
-            deviceWidth * (this.data.expressData.qrCodeUrl.height / 375)
-          );
+            deviceWidth * (qrCodeUrl.x / 375),
+            deviceWidth * (qrCodeUrl.y / 375),
+            deviceWidth * (qrCodeUrl.width / 375),
+            deviceWidth * (qrCodeUrl.height / 375),
+          )
           context.draw();
           wx.hideLoading();
-        });
-      });
-    });
+        })
+      })
+    })
   },
-
-  saveCanvasToLocal(id) {
-    return new Promise((resolve, reject) => {
-      wx.canvasToTempFilePath({
-        canvasId: id,
-        success: function(res) {
-          resolve(res.tempFilePath);
-        },
-        fail: function(err) {
-          reject(err);
-        }
-      });
-    });
-  },
-
+  
+  //绘制背景图片
   drawBackgroudImage() {
     const _this = this;
     return new Promise((resolve, reject) => {
       wx.getImageInfo({
         src: _this.data.expressData.imgPath,
-        success: function(res) {
+        success: function (res) {
+          //背景图片
           context.drawImage(res.path, 0, 0, deviceWidth, bgHeight);
           resolve();
         },
-        fail: function(err) {
+        fail: function (err) {
           reject(err);
         }
       });
     });
   },
 
-  drawQrCodeImage() {
-    drawing.qrc("qrCodeCanvas", this.data.expressData.qrCodeUrl.code, 50, 50);
-  },
-
-  drawProduct() {
+  //绘制头像
+  drawAvatar(){
     const _this = this;
-    return new Promise((resolve, reject) => {
-      wx.getImageInfo({
-        src: _this.data.expressData.list.product.imgUrl,
-        success: function(res) {
-          // 商品
-          context.drawImage(
-            res.path,
-            deviceWidth * (_this.data.expressData.list.product.x / 375),
-            deviceWidth * (_this.data.expressData.list.product.y / 375),
-            deviceWidth * (_this.data.expressData.list.product.width / 375),
-            deviceWidth * (_this.data.expressData.list.product.height / 375)
-          );
-          // 文字
-          const list = _this.data.expressData.list;
-          _this.drawText(
-            context,
-            list.text,
-            deviceWidth * (_this.data.expressData.list.text.font / 375),
-            deviceWidth * (_this.data.expressData.list.text.x / 375),
-            deviceWidth * (_this.data.expressData.list.text.y / 375)
-          );
-          _this.drawText(
-            context,
-            list.total,
-            deviceWidth * (_this.data.expressData.list.total.font / 375),
-            deviceWidth * (_this.data.expressData.list.total.x / 375),
-            deviceWidth * (_this.data.expressData.list.total.y / 375)
-          );
-
-          return resolve();
-        },
-        fail: function(err) {
-          reject(err);
-        }
-      });
-    });
-  },
-
-  drawAvatar() {
-    const _this = this;
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve,reject) => {
       wx.getImageInfo({
         src: _this.data.expressData.list.avatar.imgUrl,
-        success: function(res) {
+        success:function(res){
           _this.drawCircleImg(
             context,
             res.path,
             deviceWidth * (_this.data.expressData.list.avatar.x / 375),
             deviceWidth * (_this.data.expressData.list.avatar.y / 375),
             deviceWidth * (_this.data.expressData.list.avatar.width / 750)
-          );
+          )
           resolve();
         },
-        fail: function(err) {
-          reject(err);
+        fail:function(err){
+          reject(err)
         }
-      });
-    });
+      })
+    })
   },
 
-  drawText: function(context, data, font, x, y) {
-    context.setFontSize(font);
-    context.setFillStyle(data.color);
-    context.setTextAlign("left");
-    context.fillText(data.text, x, y);
-  },
-
-  drawCircleImg: function(ctx, img, x, y, r) {
+  //绘制圆形
+  drawCircleImg:function(ctx, img , x, y, r){
     ctx.save();
-    var d = 2 * r;
-    var cx = x + r;
-    var cy = y + r;
+    let d = 2 * r;
+    let cx = x + r;
+    let cy = y + r;
     ctx.arc(cx, cy, r, 0, 2 * Math.PI);
     ctx.clip();
-    ctx.drawImage(img, x, y, d, d);
+    ctx.drawImage(img,x,y,d,d);
     ctx.restore();
   },
 
-  longClick: function() {
+  //绘制产品图片及文案
+  drawProduct(){
+    const _this  = this;
+    return new Promise((resolve,reject) => {
+      wx.getImageInfo({
+        src: _this.data.expressData.list.product.imgUrl,
+        success:function(res){
+          const list = _this.data.expressData.list;
+          //商品图片
+          context.drawImage(
+            res.path,
+            deviceWidth * (list.product.x / 375),
+            deviceWidth * (list.product.y / 375),
+            deviceWidth * (list.product.width / 375),
+            deviceWidth * (list.product.height / 375),
+          )
+          //绘制标题
+          _this.drawText(
+            context,
+            list.text,
+            deviceWidth * (list.text.font / 375),
+            deviceWidth * (list.text.x / 375),
+            deviceWidth * (list.text.y / 375),
+          )
+          //绘制价格
+          _this.drawText(
+            context,
+            list.total,
+            deviceWidth * (list.total.font / 375),
+            deviceWidth * (list.total.x / 375),
+            deviceWidth * (list.total.y / 375),
+          )
+          return resolve();
+        },
+        fail:function(err){
+          reject(err);
+        }
+      })
+    })
+  },
+
+  //绘制文案
+  drawText:function(ctx, data, font, x, y){
+    ctx.setFontSize(font);
+    ctx.setFillStyle(data.color);
+    ctx.setTextAlign("left");
+    ctx.fillText(data.text, x, y)
+  },
+
+  //绘制二维码
+  drawQrCodeImage(){
+    drawing.qrc("qrCodeCanvas", this.data.expressData.qrCodeUrl.code, 50, 50);
+  },
+
+  //保存Canvas画布为图片
+  saveCanvasToLocal(id){
+    return new Promise((resolve,reject) => {
+      wx.canvasToTempFilePath({
+        canvasId: id,
+        success:function(res){
+          resolve(res.tempFilePath)
+        },
+        fail:function(err){
+          reject(err)
+        }
+      })
+    })
+  },
+
+  //保存朋友圈分享图
+  longClick:function(){
     let _this = this;
-    _this.saveCanvasToLocal("myCanvas").then(canvasPath => {
+    _this.saveCanvasToLocal('myCanvas').then(canvasPath => {
       wx.showModal({
-        content: "保存图片",
-        success: function(res) {
-          if (res.confirm) {
-            console.log("用户点击确定");
+        title: '是否保存图片',
+        success:function(res){
+          //点击确定按钮
+          if(res.confirm){
             wx.saveImageToPhotosAlbum({
               filePath: canvasPath,
-              success(res) {
-                console.log("res:saveimg---", res);
+              success(res){
                 wx.showToast({
-                  title: "保存成功",
-                  icon: "success",
+                  title: '保存成功',
+                  icon:"success",
                   duration: 2000
-                });
-
-                setTimeout(() => {
-                  wx.navigateBack({
-                    delta: 1
-                  });
-                }, 2500);
+                })
               },
-              fail(err) {
-                console.log("errsaveimg", err);
-                wx.hideToast();
+              fail(err){
+                wx.hideToast()
 
+                //是否打开手机图库授权
                 wx.getSetting({
-                  success: res => {
-                    if (!res.authSetting["scope.writePhotosAlbum"]) {
+                  success:res =>{
+                    if(!res.authSetting["scope.writePhotoAlbum"]){
                       wx.showModal({
-                        title: "提示",
-                        content: "保存图片需要打开手机图库授权，是否继续授权？",
-                        success: function(res) {
-                          if (res.confirm) {
-                            wx.openSetting();
-                          } else if (res.cancel) {
-                            console.log("用户点击取消");
+                        title: '提示',
+                        content: '保存图片需要打开手机图库授权，是否继续授权？',
+                        success:function(res){
+                          if(res.confirm){
+                            wx.openSetting()
+                          }else if(res.cancel){
+                            console.log("用户已取消")
                           }
                         }
-                      });
+                      })
                     }
                   }
-                });
+                })
               }
-            });
-          } else if (res.cancel) {
-            console.log("用户点击取消");
+            })
+          }else if(res.cancel){
+            console.log("用户已取消")
           }
         }
-      });
-    });
+      })
+    })
   }
-});
+})

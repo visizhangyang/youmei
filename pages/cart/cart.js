@@ -12,6 +12,7 @@ Page({
       "checkedGoodsCount": 0,       //选择商品数量
       "checkedGoodsAmount": 0.00    //选择商品总价
     },
+    showLoginDialog:false
   },
 
   onLoad: function (options) {
@@ -170,8 +171,18 @@ Page({
       return false;
     }
 
-    wx.navigateTo({
-      url: '../shopping/checkout/checkout',
-    })
-  }
+    //判断是否已登录
+    const userInfo = wx.getStorageSync('userInfo');
+    if (userInfo){
+      wx.navigateTo({
+        url: '../shopping/checkout/checkout',
+      })
+    }else{
+      this.setData({
+        showLoginDialog:true
+      })
+    }
+
+  },
+
 })

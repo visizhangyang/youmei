@@ -31,11 +31,18 @@ Page({
     })
 
     //获取商品总数
-    util.request(api.GoodsCount).then((res)=>{
-      _this.setData({
-        goodsCount: res.data.goodsCount
+    let goodsCount = wx.getStorageSync('goodsCount')
+    if (goodsCount){
+      this.setData({
+        goodsCount: goodsCount
       })
-    })
+    }else{
+      util.request(api.GoodsCount).then((res) => {
+        _this.setData({
+          goodsCount: res.data.goodsCount
+        })
+      })
+    }
   },
  
   //加载二级数据
