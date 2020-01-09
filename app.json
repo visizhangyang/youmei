@@ -34,10 +34,23 @@
     "pages/shopping/addressAdd/addressAdd",
     "pages/goods/goods",
     "pages/topicDetail/topicDetail",
-    "pages/qrCode/index",
-    "pages/webview/webview",
     "pages/demo/index",
-    "pages/mu/index"
+    "pages/mu/index",
+    "pages/webview/index",
+    "pages/qrCode/index",
+    "pages/navShow/index",
+    "pages/wxTime/index"
+  ],
+  "subpackages": [
+    {
+      "root": "packageA",
+      "pages": [
+        "pages/test/index"
+      ]
+    }
+  ],
+  "navigateToMiniProgramAppIdList": [
+    "wxfbade83540e159c7"
   ],
   "window": {
     "backgroundTextStyle": "dark",

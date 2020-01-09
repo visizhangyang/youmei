@@ -4,7 +4,7 @@
 function request(url, data = {}, method = "GET") {
   return new Promise(function (resolve, reject) {
     wx.request({
-      url: url,
+      url: url, 
       data: data,
       method: method,
       header: {
@@ -174,6 +174,25 @@ function showErrorToast(msg) {
   })
 }
 
+/**
+ * 数据上报（事件名称，参数）
+ */
+function dataEvent(eventName, options){
+  wx.reportAnalytics(eventName, {
+    name: options.name,
+    status: options.status,
+    userId: wx.getStorageSync("userInfo").id || 'none'
+  })
+}
+
+const app = getApp();
+
+/**
+ * 阿拉丁（事件名称，参数）
+ */
+function aldEvent(eventName,options){
+  app.aldstat.sendEvent(eventName, options)
+}
 
 module.exports = {
   formatTime,
@@ -182,7 +201,9 @@ module.exports = {
   checkSession,
   login,
   getUserInfo,
-  request
+  request,
+  dataEvent,
+  aldEvent
 }
 
 

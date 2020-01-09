@@ -30,7 +30,7 @@
    </view>
 
   <!-- 不留空白组件 -->
-  <blankComponent wx:if="{{scrollTop}}" /> 
+  <blankComponent wx:if="{{scrollTop}}"/> 
 
    <!-- 二级分类 -->
    <view class="m-menu">
@@ -54,7 +54,7 @@
             <image class="img" src="{{item.new_pic_url}}"></image>
             <view class="mt">
               <text class="brand">{{item.name}}</text>
-              <text class="price">{{floor_price}}</text>
+              <text class="price">{{item.floor_price}}</text>
               <text class="price">元起</text>
             </view>
           </view>

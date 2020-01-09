@@ -1,0 +1,3 @@
+<!--components/moduleB/index.wxml-->
+<view>MoudleB: 地址：{{ address }} , 类型：{{ type }}</view>
+<button bind:tap="onTap" data-address="{{ address }}" data-type="{{ type }}">获取数据详情：{{ selectedAddress }}, {{ selectedType }}</button>

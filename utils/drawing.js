@@ -14,6 +14,7 @@ function barc(id, code, width, height) {
 }
 
 function qrc(id, code, width, height) {
+  console.log(222)
   qrcode.api.draw(code, {
     ctx: wx.createCanvasContext(id),
     width: width,

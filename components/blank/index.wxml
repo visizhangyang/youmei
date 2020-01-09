@@ -1,4 +1,6 @@
 <!--comments/blank/index.wxml-->
 <view class="mod">
-  <view class="box">距活动时间还有01:03:56</view>
+  <navigator url="xx">
+      <view class="box">距活动时间还有01:03:56</view>
+  </navigator>
 </view>

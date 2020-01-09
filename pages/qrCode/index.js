@@ -6,7 +6,7 @@ const context = wx.createCanvasContext("myCanvas");
 const deviceWidth = wx.getSystemInfoSync().windowWidth;
 const bgHeight = (deviceWidth * 1334) / 750;
 
-Page({
+Page({ 
   /**
    * 页面的初始数据
    */

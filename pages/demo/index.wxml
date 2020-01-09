@@ -51,6 +51,3 @@
 <!-- behavior -->
 <moduleA address="北京" type="1"/>
 <moduleB address="上海" type="2"/>
-
-
-<text>倒计时：{{wxTimerList['wxTimer1'].wxTimer}}</text>

@@ -1,5 +1,5 @@
-// const ald = require('./utils/ald-stat.js') 
-// const aldstat = require('./utils/ald-stat.js')
+const ald = require('./utils/ald-stat.js')
+
 App({
   onLaunch: function () {
     try {

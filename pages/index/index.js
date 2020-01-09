@@ -6,7 +6,7 @@ import shareList from '../../utils/shareList.js'
 Page({
 
   /**
-   * 页面的初始数据
+   * 页面的初始数据 
    */
   data: {
     goodsCount: 0,// 商品总数
@@ -48,22 +48,27 @@ Page({
     // console.log(jsBase64.Base64.decode("aGFoYQ=="),"解密")
   },
 
-  //声明变量
+  //优化
+  //1.声明局部变量
+  //2.通过局部变量中间状态来判断
+  //3.局部变量与scrollTop取反（赋值）
+
+  //1.声明局部变量
   scrollStatus:false,
 
-  //倒计时显示
+  //scrollTop 滚动监听
   onPageScroll:function(e){
-    //增加scrollStatus中间状态来判断
-    if (e.scrollTop > 120) {
-      this.scrollStatus = true
-    } else {
-      this.scrollStatus = false
+    if(e.scrollTop > 120){
+      //通过局部变量中间状态来判断
+      this.scrollStatus = true;
+    }else{
+      this.scrollStatus = false;
     }
 
-    //中间状态与scrollTop比较
+    //局部变量与scrollTop取反（赋值）
     if(this.scrollStatus != this.data.scrollTop){
       this.setData({
-        scrollTop:!this.data.scrollTop
+        scrollTop: !this.data.scrollTop
       })
     }
   },
